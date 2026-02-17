@@ -113,6 +113,14 @@ function combineObjects(object1, object2) {
  */
 function reverseArr(array) {
   // TODO
+  let reverse = [];
+
+  for(let i=array.length-1; i>=0; i--){
+    reverse.push(array[i]);
+  }
+
+  return reverse;
+
 }
 
 // DO NOT EDIT BELOW THIS LINE -- the code is for testing purposes only!

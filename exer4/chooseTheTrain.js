@@ -37,6 +37,14 @@ const railArray = await getRealTimeRailCoordinates();
  */
 function getKeysToArr(arrivals) {
   // TODO
+
+  let keysArray = [];
+  for (let key in arrivals[0]) {
+    
+    keysArray.push(key);
+  }
+
+  return keysArray;
 }
 
 /**
@@ -52,7 +60,14 @@ function getKeysToArr(arrivals) {
  * DO NOT MODIFY railArray! You'll need it for later
  */
 function getTrainComingIn1Minute(arrivals) {
-  // TODO
+  let oneMinArray = [];
+  arrivals.forEach((train) => {
+    if(train.WAITING_TIME === "1 min"){
+      oneMinArray.push(train);
+    }
+  });
+
+  return oneMinArray;
 }
 
 /**
@@ -84,7 +99,18 @@ function getTrainComingIn1Minute(arrivals) {
  *
  */
 function updateLineColor(arrivals) {
-  // TODO
+  
+  let blueLines = arrivals.filter((train) => train.LINE === 'BLUE');
+
+  let pinkLines = blueLines.map((train) => {
+    return {
+      ...train,
+      LINE: "PINK"
+    }
+  })
+
+  return pinkLines;
+
 }
 
 /*
@@ -96,10 +122,12 @@ function updateLineColor(arrivals) {
 // EXPECTED: ['DESTINATION', 'DIRECTION', 'EVENT_TIME', 'LINE', 'NEXT_ARR', 'STATION', 'TRAIN_ID', 'WAITING_SECONDS', 'WAITING_TIME']
 console.log(getKeysToArr(railArray));
 
+
 // EXPECTED: Array with only the train(s) that is/are coming in 1 minute, this can vary based on real-time data
 console.log(getTrainComingIn1Minute(railArray));
 
 // EXPECTED: Array with only the Blue Line trains, but with LINE changed to 'PINK', this can vary based on real-time data
 console.log(updateLineColor(railArray));
+
 // EXPECTED: true as the original railArray should not be modified
-console.log(railArray.some((arrival) => arrival.LINE === "BLUE"));
+console.log(railArray.some((arrival) => arrival.LINE === "BLUE")); 
